@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Data Class</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i">
+	<link rel="stylesheet" href="FiraCode/distr/fira_code.css">
+	<link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen-16x10.css">
+	<link rel="stylesheet" href="custom.css">
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>Data Class</h1>
+	</header>
+
+	<section class="slide">
+		<h2 class="title">Модели данных. <em class="accent">Бесплатно</em>, без СМС</h2>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>async getUserList() {</code>
+			<code>  const response = await fetch('/api/users/');</code>
+			<code>  return response.json();</code>
+			<code>}</code>
+		</pre>
+
+		<pre class="next fade">
+			<code>function <span class="accent-2">UserInfoView</span>({ user }) {</code>
+			<code>  return <span class="accent-2">...</span>;</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide darkside">
+		<p class="title">Что это за данные? <br>Что <em class="accent">внутри</em>?</p>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User {</code>
+			<code>  constructor(data) {</code>
+			<code>    this.id = data.id;</code>
+			<code>    this.name = data.name<span class="next fade accent-3"> || 'Anonymous'</span>;</code>
+			<code>    this.age = data.age<span class="next fade accent-3"> || 0</span>;</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre><code>const user = new User({ id: '...', name: 'Liza' });</code></pre>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>&laquo;Самодокументируемый&raquo; код</li>
+			<li>Бесплатное автозаполнение</li>
+			<li>История изменения данных в процессе работы</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User {</code>
+			<code>  constructor(data) {</code>
+			<code class="comment">    // ...</code>
+			<code>  }</code>
+			<code>&nbsp;</code>
+			<code>  copy(patch) {</code>
+			<code>    return new User({ ...this, ...patch });</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide darkside">
+		<p class="title">Потому что <em class="accent">immutable</em>!</p>
+	</section>
+
+	<section class="slide">
+		<h2 class="title">Неизменяемые персистентные структуры данных <span class="next">❤️</span></h2>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User {</code>
+			<code>  constructor(data) {</code>
+			<code class="comment">    // ...</code>
+			<code>  }</code>
+			<code>&nbsp;</code>
+			<code>  equals(user) {</code>
+			<code>    return user.id === this.id && ...;</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User {</code>
+			<code>  constructor(data) {</code>
+			<code class="comment">    // ...</code>
+			<code>  }</code>
+			<code>&nbsp;</code>
+			<code>  isAdult() {</code>
+			<code>    return this.age >= 18;</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<p class="title"><a href="https://dataclass.js.org/">dataclass.js.org</a></p>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Порт идей из Scala и Kotlin</li>
+			<li>Работает с Flow и TypeScript</li>
+			<li><strong class="accent">671B</strong> после минификации и сжатия</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User {</code>
+			<code>  constructor(data) {</code>
+			<code>    this.id = data.id;</code>
+			<code>    this.name = data.name || 'Anonymous';</code>
+			<code>    this.age = data.age || 0;</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User extends Record {</code>
+			<code>  id = null;</code>
+			<code>  name = 'Anonymous';</code>
+			<code>  age = 0;</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>class User extends Record {</code>
+			<code>  id: <span class="accent-2">ID</span> = null;</code>
+			<code>  name: <span class="accent-2">string</span> = 'Anonymous';</code>
+			<code>  age: <span class="accent-2">number</span> = 0;</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Методы <code>copy()</code> и <code>equals()</code> из коробки</li>
+			<li>Лучше использовать в паре с ESnext class fields</li>
+			<li>Синтаксис одинаковый для Flow и TypeScript</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>const user = new User({ ... });</code>
+			<code>const user2 = user.copy({ name: '...' });</code>
+			<code>user.equals(user2);</code>
+		</pre>
+	</section>
+
+	<section class="slide darkside">
+		<p class="title"><a style="color: #1E88E5;" href="https://dataclass.js.org/">dataclass.js.org</a></p>
+		<p><code>npm install <span class="accent">dataclass</span></code></p>
+	</section>
+
+	<script src="node_modules/shower-core/shower.min.js"></script>
+	<script src="highlight.js"></script>
+</body>
+</html>
